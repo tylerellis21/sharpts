@@ -60,16 +60,7 @@ namespace SharpTS.Reflection {
 
             Type[] assembly_types = assembly.GetTypes();
             foreach (Type type in assembly_types) {
-
-                if (type_rules.EnableRegexFilter) {
-                    
-                    // If the regex matches 1 or more we add the type.
-                    if (TypeRegex.RegexTestType(type, type_rules.RegexPattern)) {
-                        results.Add(type);
-                    }
-                }
-                else {
-                    // TODO: Add filtering 
+                if (type_rules.Check(type)) {
                     results.Add(type); 
                 }   
             }
