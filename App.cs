@@ -4,6 +4,9 @@ using System.IO;
 using System.Reflection;
 using System.Diagnostics;
 
+using SharpTS.Reflection;
+using SharpTS.Typescript;
+
 namespace SharpTS {
 
     internal class Program {
@@ -62,25 +65,8 @@ namespace SharpTS {
         // 1. We must search for the types we need to processes.
         // 2. Generate the appopriate typescript files for each type we are processing.
         void Run(string[] args) {
-            
             ParseArguments(args);
-
-            //Assembly assembly = Assembly.GetCallingAssembly();
-
-            //List<Type> types = SearchNamespaceType(assembly, input_namespace);
         }
-/*
-        static List<Type> SearchNamespaceType(Assembly assembly, string name) {
-            List<Type> types = new List<Type>();
 
-            Type[] assembly_types = assembly.GetTypes();
-
-            foreach (Type type in assembly_types) {
-                Console.WriteLine($"{type.Attributes} {type.FullName}");
-            }
-
-            return types;
-        }
-*/
     } // class Program
 } // namespace SharpTS
