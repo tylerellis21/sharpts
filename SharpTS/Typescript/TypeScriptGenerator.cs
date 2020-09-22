@@ -4,11 +4,11 @@ using System.IO;
 using System.Reflection;
 using System.Diagnostics;
 
-namespace sharpts {
+namespace SharpTS {
 
-    public static class TypeReflection {
+    public static class TypeScriptGenerator {
     
     } // class TypeReflection
     
-} // namespace sharpts
+} // namespace SharpTS
  

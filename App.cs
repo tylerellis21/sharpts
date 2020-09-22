@@ -4,7 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Diagnostics;
 
-namespace sharpts {
+namespace SharpTS {
 
     internal class Program {
 
@@ -19,7 +19,6 @@ namespace sharpts {
         // By default we will just dump to the current working directory.
         static string output_dir = "./";
 
-        
         void ParseArguments(string[] args) {
             // We could probably do this a better way but i just quickly wrote this argument parsing.
             for (int i = 0; i < args.Length; i++) {
@@ -84,4 +83,4 @@ namespace sharpts {
         }
 */
     } // class Program
-} // namespace sharpts
+} // namespace SharpTS
