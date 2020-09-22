@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Diagnostics;
 
 using SharpTS.Reflection;
-using SharpTS.Typescript;
+using SharpTS.TypeScript;
 
 namespace SharpTS {
 

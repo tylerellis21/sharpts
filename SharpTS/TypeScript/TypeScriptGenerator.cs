@@ -4,7 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Diagnostics;
 
-namespace SharpTS.Typescript {
+namespace SharpTS.TypeScript {
 
     public class TypeScriptGenerator {
         
@@ -30,5 +30,5 @@ namespace SharpTS.Typescript {
     
     } // class TypeReflection
     
-} // namespace SharpTS.Typescript 
+} // namespace SharpTS.TypeScript 
  
