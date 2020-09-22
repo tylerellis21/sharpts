@@ -4,11 +4,16 @@ using System.IO;
 using System.Reflection;
 using System.Diagnostics;
 
+using SharpTS.TypeScript.Types;
+
 namespace SharpTS.TypeScript {
     
-    public class TypeTranslator {
+    public class TypeScriptTypeTranslator {
 
-        public TypeTranslator() {
+        private Dictionary<Type, TypeScriptType> type_map;
+
+        public TypeScriptTypeTranslator() {
+            this.type_map = new Dictionary<Type, TypeScriptType>();
         }
 
         public void Translate(Type type) {
