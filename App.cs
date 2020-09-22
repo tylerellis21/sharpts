@@ -37,6 +37,7 @@ namespace SharpTS {
                             return;
                         }
                         input_namespaces.Add(args[i + 1]);
+                        i++;
                     } break;
 
                     case "-in":
@@ -46,6 +47,7 @@ namespace SharpTS {
                             return;
                         }
                         input_files.Add(args[i + 1]);
+                        i++;
                     } break;
 
                     case "-out":
@@ -55,6 +57,7 @@ namespace SharpTS {
                             return;
                         }                                         
                         output_dir = args[i + 1];
+                        i++;
                     } break;
 
                 } // switch
@@ -65,7 +68,24 @@ namespace SharpTS {
         // 1. We must search for the types we need to processes.
         // 2. Generate the appopriate typescript files for each type we are processing.
         void Run(string[] args) {
+
             ParseArguments(args);
+            
+            TypeRules type_rules = new TypeRules() {
+                RegexPattern = "^(WP\\.Models\\.*)",
+                EnableClasses = true,
+                EnableInterfaces = true, 
+                EnableRegexFilter = true
+            };
+
+            List<Type> types = TypeReflection.Load(
+                type_rules, 
+                ref input_files, 
+                ref input_namespaces
+            );
+
+            bool result 
+                = TypeScriptGenerator.Generate(ref types);
         }
 
     } // class Program
