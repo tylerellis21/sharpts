@@ -1,7 +1,5 @@
 namespace WP.Models {
-    
-    interface TestInterface {
+    public interface TestInterface {
         string StringProperty { get; set; }
     }
-
 } // namespace WP.Models

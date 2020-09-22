@@ -64,6 +64,11 @@ namespace SharpTS {
             } // for
         } // ParseArguments
 
+        /*
+            TODO(@Tyler):
+                - Can we generate the ajax functions to invoke the correct api function/urlpath as needed automatically? 
+        */
+
         // Begin the process of generating typescript.
         // 1. We must search for the types we need to processes.
         // 2. Generate the appopriate typescript files for each type we are processing.
@@ -84,8 +89,13 @@ namespace SharpTS {
                 ref input_namespaces
             );
 
+            TypeScriptGenerator tsc 
+                = new TypeScriptGenerator(output_dir);
+
             bool result 
-                = TypeScriptGenerator.Generate(ref types);
+                = tsc.Generate(ref types);
+            
+            Console.WriteLine("finished generation");
         }
 
     } // class Program
