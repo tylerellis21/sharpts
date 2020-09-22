@@ -7,6 +7,10 @@ using System.Diagnostics;
 namespace SharpTS.Typescript {
 
     public static class TypeScriptGenerator {
+
+        public static bool Generate(ref List<Type> types) {
+            return true;
+        }
     
     } // class TypeReflection
     
