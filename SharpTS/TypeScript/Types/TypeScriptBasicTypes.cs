@@ -14,7 +14,8 @@ namespace SharpTS.TypeScript.Types {
 
         public TSBasicType Type { get; set; }
 
-        public TypeScriptBasicType(TSBasicType type) {
+        public TypeScriptBasicType(string name, TSBasicType type) :
+            base(name) {
             this.Type = type;
         }
     }

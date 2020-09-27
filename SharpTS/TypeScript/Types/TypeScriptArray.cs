@@ -6,7 +6,8 @@ namespace SharpTS.TypeScript.Types {
         
         public TypeScriptType Type { get; set; }
 
-        public TypeScriptArray(TypeScriptType type) {
+        public TypeScriptArray(string name, TypeScriptType type) :
+            base(name) {
             this.Type = type;
         }
     }
