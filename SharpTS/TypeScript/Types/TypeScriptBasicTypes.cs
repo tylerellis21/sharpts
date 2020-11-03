@@ -18,6 +18,17 @@ namespace SharpTS.TypeScript.Types {
             base(name) {
             this.Type = type;
         }
+
+        public override string Generate() {
+            switch (Type) {
+            default: throw new Exception("unhandled basic type in generate");
+            case TSBasicType.TSAny: return "any";
+            case TSBasicType.TSBoolean: return "boolean";
+            case TSBasicType.TSNull: return "null";
+            case TSBasicType.TSNumber: return "number";
+            case TSBasicType.TSString: return "string";
+            } // switch
+        }
     }
 
 } // namespace SharpTS.TypeScript.Types

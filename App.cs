@@ -73,11 +73,10 @@ namespace SharpTS {
         // 1. We must search for the types we need to processes.
         // 2. Generate the appopriate typescript files for each type we are processing.
         void Run(string[] args) {
-
             ParseArguments(args);
             
             TypeRules type_rules = new TypeRules() {
-                RegexPattern = "^(WP\\.Models\\.*)",
+                RegexPattern = "^(WP*)",
                 EnableClasses = true,
                 EnableInterfaces = true, 
                 EnableRegexFilter = true

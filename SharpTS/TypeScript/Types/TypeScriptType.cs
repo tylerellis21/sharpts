@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 
 namespace SharpTS.TypeScript.Types {
 
@@ -9,6 +10,8 @@ namespace SharpTS.TypeScript.Types {
         public TypeScriptType(string name) {
             this.Name = name;
         }
+
+        public abstract string Generate();
     }
 
 } // SharpTS.TypeScript.Types

@@ -20,21 +20,30 @@ namespace SharpTS.TypeScript {
             this.tsTypeTranslator = new TypeScriptTypeTranslator();
         }
 
-        public bool Generate(Type type) {
+        public string Generate(Type type) {
             
             Console.WriteLine($"INFO: generating type for '{type.FullName}'");
             
             TypeScriptType tstype 
                 = tsTypeTranslator.Translate(type);
-            
-            return true;
+
+            return tstype.Generate();
         }
 
         public bool Generate(ref List<Type> types) {
             foreach (Type type in types) {
-                if (Generate(type) == false) {
-                    Console.Write($"ERROR: failed to generate type for '{type.FullName}'");
-                }
+                
+                string path = $"{OutputDir}/{type.Name}.ts";
+
+                TextWriter writer = new StreamWriter(path, false);
+
+                string line = Generate(type);
+
+                writer.WriteLine(line);
+
+                writer.Flush();
+                writer.Close();
+                //Console.Write($"ERROR: failed to generate type for '{type.FullName}'");
             }
             return true;
         }
