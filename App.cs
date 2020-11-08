@@ -6,6 +6,7 @@ using System.Diagnostics;
 
 using SharpTS.Reflection;
 using SharpTS.TypeScript;
+using SharpTS.TypeScript.Types;
 
 namespace SharpTS {
 
@@ -88,11 +89,16 @@ namespace SharpTS {
                 ref input_namespaces
             );
 
+            TypeScriptTypeTranslator tst 
+                = new TypeScriptTypeTranslator();
+
+            List<TypeScriptType> tsTypes = tst.Translate(types);            
+
             TypeScriptGenerator tsc 
                 = new TypeScriptGenerator(output_dir);
 
             bool result 
-                = tsc.Generate(ref types);
+                = tsc.Generate(ref tsTypes);
             
             Console.WriteLine("finished generation");
         }

@@ -10,10 +10,31 @@ namespace SharpTS.TypeScript {
     
     public class TypeScriptTypeTranslator {
 
-        private Dictionary<Type, TypeScriptType> type_map;
+        private Dictionary<Type, TypeScriptType> typeMap;  
+
+        private List<TypeScriptType> tsTypes;
 
         public TypeScriptTypeTranslator() {
-            this.type_map = new Dictionary<Type, TypeScriptType>();
+            typeMap = new Dictionary<Type, TypeScriptType>();  
+            tsTypes = new List<TypeScriptType>();
+        }
+
+        public List<TypeScriptType> Translate(List<Type> types) {
+            
+            foreach (Type type in types) {
+
+                if (typeMap.ContainsKey(type)) {
+                    Console.WriteLine($"type already translated '{type.FullName}'");
+                }
+                else {
+                    TypeScriptType tsType = Translate(type);
+                    tsTypes.Add(tsType);
+                    typeMap.Add(type, tsType);
+                    Console.WriteLine($"translated type '{type.FullName}' -> '{tsType.Name}'");
+                }
+            }
+
+            return tsTypes;
         }
 
         public TypeScriptType Translate(Type type) {
@@ -55,14 +76,11 @@ namespace SharpTS.TypeScript {
 
             List<TypeScriptField> ts_fields = new List<TypeScriptField>();
             
-            //FieldInfo[] fields = type.GetFields();
             PropertyInfo[] properties = type.GetProperties();
+
             foreach(PropertyInfo property in properties) {
                 ts_fields.Add(TranslateProperty(property));
             }
-            //foreach (FieldInfo field in fields) {
-            //    ts_fields.Add(TranslateField(field));
-            //}
 
             return new TypeScriptInterface(type.Name, ts_fields);
         }
@@ -71,22 +89,19 @@ namespace SharpTS.TypeScript {
 
             List<TypeScriptField> ts_fields = new List<TypeScriptField>();
             
-            //FieldInfo[] fields = type.GetFields();
             PropertyInfo[] properties = type.GetProperties();
+
             foreach(PropertyInfo property in properties) {
-                ts_fields.Add(TranslateProperty(property));
+                ts_fields.Add(TranslateField(property.PropertyType));
             }
-            //foreach (FieldInfo field in fields) {
-            //    ts_fields.Add(TranslateField(field));
-            //}
 
             TypeScriptClass result 
                 = new TypeScriptClass(type.Name, ts_fields);
             
-            if (type.BaseType != null)
-                result.BaseType = Translate(type.BaseType);
+            // if the type has a 'BaseType' then we must translate 
+            //if (type.BaseType != null)
+            //    result.BaseType = Translate(type.BaseType);
 
-                //foreach (Type itype in type.geti
             Type[] interfaces = type.GetInterfaces();
 
             foreach (Type itype in interfaces) {
@@ -107,7 +122,6 @@ namespace SharpTS.TypeScript {
             return new TypeScriptEnum(type.Name, ts_values);
         }
 
-
         private TypeScriptField TranslateField(FieldInfo field) {
             Type field_type = field.FieldType;
             TypeScriptType ts_type = Translate(field_type);
@@ -118,5 +132,7 @@ namespace SharpTS.TypeScript {
             TypeScriptType ts_type = Translate(property.PropertyType);
             return new TypeScriptField(property.Name, ts_type);
         }
+
     } // class TypeScriptTypeTranslator
+
 } // namespace SharpTS.TypeScript
