@@ -12,11 +12,6 @@ namespace SharpTS.TypeScript.Types {
             this.Type = type;
         }
 
-        // a: Array<T>
-
-        public override string Generate() 
-            => $"{Name}: Array<{Type.Generate()}>";
-
     } // class TypeScriptArray
 
 } // namespace SharpTS.TypeScript.Types

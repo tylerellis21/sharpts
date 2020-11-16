@@ -10,8 +10,6 @@ namespace SharpTS.TypeScript.Types {
         public TypeScriptType(string name) {
             this.Name = name;
         }
-
-        public abstract string Generate();
     }
 
 } // SharpTS.TypeScript.Types
