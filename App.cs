@@ -88,20 +88,18 @@ namespace SharpTS {
                 ref input_files, 
                 ref input_namespaces
             );
-
-            TypeScriptTypeTranslator tst 
-                = new TypeScriptTypeTranslator();
-
-            List<TypeScriptType> tsTypes = tst.Translate(types);            
-
-            TypeScriptGenerator tsc 
-                = new TypeScriptGenerator(output_dir);
-
-            bool result 
-                = tsc.Generate(ref tsTypes);
             
-            Console.WriteLine("finished generation");
-        }
+            SharpTypeConverter sharp_type_converter 
+                = new SharpTypeConverter(types);
+            
+            bool successful = sharp_type_converter.Convert();
+            if (successful == false) {
+                Console.WriteLine("failed during conversion of c# types into typescript types");
+                return;
+            }
+            
+        } // void Run
 
     } // class Program
+
 } // namespace SharpTS

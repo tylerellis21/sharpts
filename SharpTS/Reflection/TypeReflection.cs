@@ -6,8 +6,16 @@ using System.Diagnostics;
 
 namespace SharpTS.Reflection {
 
+    /// <summary>
+    /// The TypeReflection class
+    /// </summary>
     public static class TypeReflection {
 
+        /// <summary>
+        /// Load the assemblies contained in the given file paths.
+        /// </summary>
+        /// <param name="files">The list of dotnet assemblies to search</param>
+        /// <returns>All of the assemblies that were loaded</returns>
         public static List<Assembly> LoadAssemblies(List<string> files) {
             
             List<Assembly> assemblies 
