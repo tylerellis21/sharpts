@@ -14,6 +14,7 @@ namespace SharpTS.TypeScript.Types {
 
         public TypeScriptClass(string name, List<TypeScriptField> fields) :
             base(name) { 
+            this.IsClass = true;
             this.Fields = fields;
         }
 

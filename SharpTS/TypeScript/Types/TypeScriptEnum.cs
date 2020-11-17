@@ -14,6 +14,7 @@ namespace SharpTS.TypeScript.Types {
         
         public TypeScriptEnum(string name, List<TypeScriptField> values) :
             base(name) { 
+            this.IsEnum = true;
             this.Values = values;
         }
 

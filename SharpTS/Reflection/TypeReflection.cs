@@ -60,7 +60,13 @@ namespace SharpTS.Reflection {
 
             return assemblies;
         }
-        
+
+        /// <summary>
+        /// Searches an assembly looking for types that are included by the rules
+        /// </summary>
+        /// <param name="type_rules">The rules which define the allowed types</param>
+        /// <param name="assembly">The assembly we are looking for types in</param>
+        /// <param name="results">Returns the list of types that were included by the rules</param>
         public static void FindTypes(
             TypeRules type_rules, 
             Assembly assembly, 
@@ -74,6 +80,12 @@ namespace SharpTS.Reflection {
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type_rules"></param>
+        /// <param name="assemblies"></param>
+        /// <param name="results"></param>
         public static void FindTypes(
             TypeRules type_rules,
             List<Assembly> assemblies, 
@@ -84,7 +96,13 @@ namespace SharpTS.Reflection {
             }
         }
 
-        // 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type_rules"></param>
+        /// <param name="input_assemblies"></param>
+        /// <param name="input_namespaces"></param>
+        /// <returns></returns>
         public static List<Type> Load(
             TypeRules type_rules,
             ref List<string> input_assemblies, 

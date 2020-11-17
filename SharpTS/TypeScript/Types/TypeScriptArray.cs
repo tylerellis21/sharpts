@@ -9,6 +9,7 @@ namespace SharpTS.TypeScript.Types {
 
         public TypeScriptArray(string name, TypeScriptType type) :
             base(name) {
+            this.IsArray = true;
             this.Type = type;
         }
 

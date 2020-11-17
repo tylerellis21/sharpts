@@ -8,6 +8,7 @@ namespace SharpTS.TypeScript.Types {
 
         public TypeScriptField(string name, TypeScriptType type) :
             base(name) {
+            this.IsField = true;
             this.Type = type;
         }
         

@@ -10,13 +10,13 @@ namespace SharpTS.TypeScript {
         /// <summary>
         /// The array of C# types that will be converted to typescript types.
         /// </summary>
-        /// <value></value>
+        /// <value>The list of types to be converted</value>
         public List<Type> InputTypes { get; }
 
         /// <summary>
         /// Pass in the array of C# types that are being converted into typescript types.
         /// </summary>
-        /// <param name="types"></param>
+        /// <param name="types">The list of types to be converted</param>
         public SharpTypeConverter(List<Type> types) {
             this.InputTypes = InputTypes;
         }
@@ -28,6 +28,7 @@ namespace SharpTS.TypeScript {
         public bool Convert() {
             return true;
         }
-    }
+        
+    } // class SharpTypeConverter
 
 } // namespace SharpTS.TypeScript

@@ -10,4 +10,5 @@ namespace SharpTS.TypeScript {
     public class TypeScriptSourceGenerator {
         
     }
+    
 } // namespace SharpTS.TypeScript

@@ -4,13 +4,23 @@ using System.Collections.Generic;
 
 namespace SharpTS.TypeScript.Types {
 
+    /// <summary>
+    /// This class represents a TypeScript Interface
+    /// </summary>
     public class TypeScriptInterface : TypeScriptType { 
-        
-        public List<TypeScriptField> Fields { get; set; }
 
-        public TypeScriptInterface(string name, List<TypeScriptField> fields) :
+        /// <summary>The list of declared properties in the interface</summary>
+        public List<TypeScriptProperty> Properties { get; set; }
+        
+        /// <summary>
+        /// Construct an instance of a typescript interface type
+        /// </summary>
+        /// <param name="name">The name of the declared type</param>
+        /// <param name="properties">The declared properties in the interface</param>
+        public TypeScriptInterface(string name, List<TypeScriptProperty> properties) :
             base(name) { 
-            this.Fields = fields;
+            this.IsInterface = true;
+            this.Properties = properties;
         }
  
     } // class TypeScriptInterface
