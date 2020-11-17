@@ -341,5 +341,6 @@ healthchecksdb
 
 lib/
 build/
+docs/
 
 *.vs*
