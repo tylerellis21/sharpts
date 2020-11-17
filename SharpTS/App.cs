@@ -8,6 +8,9 @@ using SharpTS.Reflection;
 using SharpTS.TypeScript;
 using SharpTS.TypeScript.Types;
 
+using SharpTS.TypeConverters;
+using SharpTS.SourceGenerators;
+
 namespace SharpTS {
 
     internal class Program {
@@ -89,10 +92,11 @@ namespace SharpTS {
                 ref input_namespaces
             );
             
-            SharpTypeConverter sharp_type_converter 
+            SharpTypeConverter type_converter 
                 = new SharpTypeConverter(types);
             
-            bool successful = sharp_type_converter.Convert();
+            bool successful = type_converter.Convert();
+            
             if (successful == false) {
                 Console.WriteLine("failed during conversion of c# types into typescript types");
                 return;

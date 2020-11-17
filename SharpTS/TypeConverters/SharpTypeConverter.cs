@@ -1,7 +1,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace SharpTS.TypeScript {
+using SharpTS.TypeConverters;
+
+using SharpTS.TypeScript;
+using SharpTS.TypeScript.Types;
+
+namespace SharpTS.TypeConverters {
+
     /// <summary>
     /// This class is responsible for converting the C# types into the appropriate TypeScript type.
     /// </summary>
@@ -18,7 +24,7 @@ namespace SharpTS.TypeScript {
         /// </summary>
         /// <param name="types">The list of types to be converted</param>
         public SharpTypeConverter(List<Type> types) {
-            this.InputTypes = InputTypes;
+            this.InputTypes = types;
         }
         
         /// <summary>
@@ -26,9 +32,20 @@ namespace SharpTS.TypeScript {
         /// </summary>
         /// <returns></returns>
         public bool Convert() {
+            foreach (Type type in InputTypes) {
+                Console.WriteLine($"converting type: {type.FullName} ");
+                TypeScriptType tsType = ConvertType(type);
+            }
             return true;
+        }
+
+        private TypeScriptType ConvertType(Type type) {
+            if (type.IsClass) return ClassTypeConverter.Convert(type);
+            
+            throw new Exception($"type failed to find converter: '{type.FullName}'");
+            return null;
         }
         
     } // class SharpTypeConverter
 
-} // namespace SharpTS.TypeScript
+} // namespace SharpTS.TypeConverters
