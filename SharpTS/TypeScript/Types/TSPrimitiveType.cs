@@ -5,6 +5,7 @@ namespace SharpTS.TypeScript.Types {
         TSBoolean, 
         TSNumber,
         TSString,
+        TSDate,
         TSVoid
 
     } // enum TSPrimitiveType

@@ -6,16 +6,16 @@ namespace SharpTS.TypeScript.Types {
 
     public class TypeScriptEnum : TypeScriptType { 
         
-        public List<TypeScriptField> Values { get; set; }
+        public List<TypeScriptField> Fields { get; set; }
 
         public TypeScriptEnum(string name) :
             base(name)
         { }
         
-        public TypeScriptEnum(string name, List<TypeScriptField> values) :
+        public TypeScriptEnum(string name, List<TypeScriptField> fields) :
             base(name) { 
             this.IsEnum = true;
-            this.Values = values;
+            this.Fields = fields;
         }
 
     } // class TypeScriptEnum

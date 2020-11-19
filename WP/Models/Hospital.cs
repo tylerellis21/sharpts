@@ -21,15 +21,6 @@ namespace WP.Common.Models {
         public string Name { get; set; }
 
         [Required]
-        public virtual PhysicalAddress Address { get; set; }
-
-        public virtual Employee CreatedByEmployee { get; set; }
-
-        [Required]
-        public DateTime CreatedDate;
-
-        public HospitalType Type { get; set; }
-
         public string Telephone { get; set; }
         public string Image { get; set; }
         public string Website { get; set; }
@@ -48,8 +39,6 @@ namespace WP.Common.Models {
         public virtual Hospital Parent { get; set; }
 
         public virtual ICollection<Hospital> ChildrenHospitals { get; set; }
-
-        public virtual ICollection<Job> Jobs { get; set; }
 
         public Hospital GetRootParent() {
             Hospital pointer = this;
