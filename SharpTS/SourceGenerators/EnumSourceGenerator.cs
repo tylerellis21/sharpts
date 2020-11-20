@@ -26,9 +26,13 @@ namespace SharpTS.SourceGenerators {
         */
 
         private bool GenerateEnum(TypeScriptEnum tsEnum, TextWriter output) {
-            output.WriteLine($"enum {tsEnum.Name} {{");
+            output.WriteLine($"export enum {tsEnum.Name} {{");
             foreach (TypeScriptField tsField in tsEnum.Fields) {
-                output.WriteLine($"  {tsField.Name},");
+                output.Write($"  {tsField.Name} ");
+                if (tsField.Value != null) {
+                    output.Write($"= {tsField.Value.ToString()}");
+                }
+                output.WriteLine(",");
             }
             output.WriteLine("}");
             return true;

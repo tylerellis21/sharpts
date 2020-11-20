@@ -16,6 +16,10 @@ namespace SharpTS.TypeConverters {
             {
                 FieldInfo[] fields = type.GetFields();
                 foreach (FieldInfo field in fields) {
+                    
+                    // I'm not sure where this is coming from but it's in there lol
+                    if (field.Name == "value__") continue;
+
                     tsFields.Add(ConvertField(field));
                 }
             }

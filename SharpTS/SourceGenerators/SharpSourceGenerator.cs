@@ -29,6 +29,12 @@ namespace SharpTS.SourceGenerators {
         private void BeginGenerateType(TypeScriptType type) {
             string path = $"{OutputDir}/{type.Name}.ts";
 
+            // Remove any old generated files.
+            // TODO: Just change the file mode lol.
+            if (File.Exists(path)) {
+                File.Delete(path);
+            }
+
             TextWriter output = new StreamWriter(File.OpenWrite(path));
 
             Console.WriteLine($"generating source for type: {type.Name} {type.GetType().GUID}");
@@ -69,8 +75,9 @@ namespace SharpTS.SourceGenerators {
             throw new Exception($"failed to generate source for type: {type.Name}");
 
             return false;
-        }
         
+        }
+
     } // class SharpSourceGenerator
     
 } // namespace SharpTS.SourceGenerators

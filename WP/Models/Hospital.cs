@@ -7,8 +7,8 @@ using System.Collections.Generic;
 namespace WP.Common.Models {
 
     public enum HospitalType { 
-        None = 0,
-        Special
+        None = 20,
+        Special = 666
     }
 
     public class Hospital {
