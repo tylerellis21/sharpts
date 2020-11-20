@@ -19,6 +19,8 @@ namespace SharpTS.TypeConverters {
         /// <value>The list of types to be converted</value>
         public List<Type> InputTypes { get; }
 
+        public List<TypeScriptType> MappedTypes { get; set; }
+
         private Dictionary<Guid, TypeScriptType> type_map;
 
         /// <summary>
@@ -28,6 +30,7 @@ namespace SharpTS.TypeConverters {
         public SharpTypeConverter(List<Type> types) {
             this.InputTypes = types;
             this.type_map = new Dictionary<Guid, TypeScriptType>();
+            this.MappedTypes = new List<TypeScriptType>();
         }
         
         /// <summary>
@@ -37,6 +40,7 @@ namespace SharpTS.TypeConverters {
         public bool Convert() {
             foreach (Type type in InputTypes) {
                 TypeScriptType tsType = ConvertType(type);
+                MappedTypes.Add(tsType);
             }
             return true;
         }

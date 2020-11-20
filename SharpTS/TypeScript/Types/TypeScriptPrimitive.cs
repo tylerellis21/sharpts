@@ -1,11 +1,11 @@
 using System;
 
 namespace SharpTS.TypeScript.Types {
-    public class TypeScriptPrimitiveType : TypeScriptType {
+    public class TypeScriptPrimitive : TypeScriptType {
 
         public TSPrimitiveType Type { get; set; }
 
-        public TypeScriptPrimitiveType(string name, TSPrimitiveType type) :
+        public TypeScriptPrimitive(string name, TSPrimitiveType type) :
             base(name) {
             this.IsPrimitive = true;
             this.Type = type;

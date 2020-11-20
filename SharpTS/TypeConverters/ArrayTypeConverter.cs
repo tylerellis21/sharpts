@@ -31,7 +31,7 @@ namespace SharpTS.TypeConverters {
             // This isn't going to work.
             return new TypeScriptArray(
                 type.Name, 
-                new TypeScriptPrimitiveType("any", TSPrimitiveType.TSAny)
+                new TypeScriptPrimitive("any", TSPrimitiveType.TSAny)
             );
         }
 

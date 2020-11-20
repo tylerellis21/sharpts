@@ -19,7 +19,7 @@ namespace SharpTS.TypeConverters {
                     tsFields.Add(ConvertField(field));
                 }
             }
-            return new TypeScriptEnum(type.FullName, tsFields);
+            return new TypeScriptEnum(type.Name, tsFields);
         }
 
     } // class SharpTypeConverter

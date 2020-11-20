@@ -92,15 +92,18 @@ namespace SharpTS {
                 ref input_namespaces
             );
             
-            SharpTypeConverter type_converter 
+            SharpTypeConverter typeConverter 
                 = new SharpTypeConverter(types);
             
-            bool successful = type_converter.Convert();
-            
-            if (successful == false) {
+            if (typeConverter.Convert() == false) {
                 Console.WriteLine("failed during conversion of c# types into typescript types");
                 return;
             }
+
+            SharpSourceGenerator sourceGenerator
+                = new SharpSourceGenerator(output_dir, typeConverter.MappedTypes);
+
+            sourceGenerator.Generate();
             
         } // void Run
 

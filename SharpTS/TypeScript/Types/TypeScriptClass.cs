@@ -12,6 +12,7 @@ namespace SharpTS.TypeScript.Types {
 
         public TypeScriptClass(string name) :
             base(name) {
+            this.IsClass = true;
         }        
 
         public TypeScriptClass(string name,

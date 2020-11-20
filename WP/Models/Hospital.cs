@@ -8,6 +8,7 @@ namespace WP.Common.Models {
 
     public enum HospitalType { 
         None = 0,
+        Special
     }
 
     public class Hospital {

@@ -11,7 +11,7 @@ namespace SharpTS.TypeConverters {
 
     public partial class SharpTypeConverter {
 
-        public TypeScriptPrimitiveType ConvertPrimitive(Type type) {
+        public TypeScriptPrimitive ConvertPrimitive(Type type) {
 
             TSPrimitiveType tspType;
 
@@ -52,7 +52,7 @@ namespace SharpTS.TypeConverters {
                 
             } // switch (type.FullName)
 
-            return new TypeScriptPrimitiveType(type.Name, tspType);
+            return new TypeScriptPrimitive(type.Name, tspType);
         }
 
     } // class SharpTypeConverter
