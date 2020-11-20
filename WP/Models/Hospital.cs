@@ -52,5 +52,13 @@ namespace WP.Common.Models {
             return pointer;
         }
     } // class Hospital 
+
+    public class BaseTest {
+        public string BaseName { get; set; }
+    }
+
+    public class UsingBaseClass : BaseTest {
+        public string UsingName { get; set; }
+    } 
     
 } // namespace WP.Common.Models

@@ -17,8 +17,28 @@ namespace SharpTS.SourceGenerators {
             }
         */
         private bool GenerateClass(TypeScriptClass tsClass, TextWriter output) {
-            output.WriteLine($"export class {tsClass.Name} {{");
+            output.Write($"export class {tsClass.Name} ");
+            
+            // Don't extend object, no need.
+            if (tsClass.BaseType != null && tsClass.BaseType.Name != "Object") {
+                output.Write($"extends {tsClass.BaseType.Name} ");
+            }
+
+            if (tsClass.ImplementedInterfaces.Count > 0) {
+                output.Write("implements ");
+                for (int i = 0; i < tsClass.ImplementedInterfaces.Count; i++) {
+                    TypeScriptType tsType = tsClass.ImplementedInterfaces[i];
+                    output.Write($"{tsType.Name}");
+                    if (i + 1 < tsClass.ImplementedInterfaces.Count) {
+                        output.Write(',');
+                    }
+                }
+            }
+
+            output.WriteLine('{');
             foreach (TypeScriptProperty prop in tsClass.Properties) {
+                // Indent
+                output.Write("  ");
                 GenerateProperty(prop, output);
             }
             output.WriteLine("}");
