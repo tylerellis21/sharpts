@@ -21,8 +21,6 @@ namespace SharpTS.TypeConverters {
 
         private Dictionary<Guid, TypeScriptType> type_map;
 
-        private List<Guid> processingTypes;
-
         /// <summary>
         /// Pass in the array of C# types that are being converted into typescript types.
         /// </summary>
@@ -30,7 +28,6 @@ namespace SharpTS.TypeConverters {
         public SharpTypeConverter(List<Type> types) {
             this.InputTypes = types;
             this.type_map = new Dictionary<Guid, TypeScriptType>();
-            this.processingTypes = new List<Guid>();
         }
         
         /// <summary>
@@ -59,36 +56,45 @@ namespace SharpTS.TypeConverters {
                 return type_map[type.GUID];
             }
 
-            // Since we can't store an object in the type map until we fully resolve it
-            // We will add it's GUID to a list so any type that trys to convert in a recursion call,
-            // will be stopped.
-
-            processingTypes.Add(type.GUID);
-
             TypeScriptType result = null;
 
-            switch (type.FullName) {
-                case "System.Decimal":
-                case "System.String":
-                case "System.DateTime":
-                result = ConvertPrimitive(type);
-                break;
+            // Some weird edge cases
+            {
+                // Technically not 'Primitives' but in TypeScript we are limited to very
+                // few basic primatives
+                switch (type.Name) {
+                    case "Decimal":
+                    case "String":
+                    case "DateTime":
+                        result = ConvertPrimitive(type);
+                    break;
+                }
+
+                // The collection interface has weird name. 
+                // There's a bette way to handle this i'm sure.
+                if (type.Name.StartsWith("ICollection")) {
+                    result = ConvertICollection(type);
+                }
             }
 
-            if (type.IsPrimitive && result == null) {
-                result = ConvertPrimitive(type);
-            }
-            else if (type.IsClass) {
-                result = ConvertClass(type);
-            }
-            else if (type.IsInterface) {
-                result = ConvertInterface(type);
-            }
-            else if (type.IsArray) {
-                result = ConvertArray(type);
-            }
-            else if (type.IsEnum) {
-                result = ConvertEnum(type);
+            // This following only executes as long as there is no
+            // result set from the previous edge cases.
+            if (result == null) {
+                if (type.IsPrimitive) {
+                    result = ConvertPrimitive(type);
+                }
+                else if (type.IsClass) {
+                    result = ConvertClass(type);
+                }
+                else if (type.IsInterface) {
+                    result = ConvertInterface(type);
+                }
+                else if (type.IsArray) {
+                    result = ConvertArray(type);
+                }
+                else if (type.IsEnum) {
+                    result = ConvertEnum(type);
+                }
             }
 
             if (result == null) {
@@ -97,10 +103,9 @@ namespace SharpTS.TypeConverters {
 
             Console.WriteLine($"mapped type '{type.FullName} {type.GUID}'");
 
-            processingTypes.Remove(type.GUID);
-
             return result;
-        }
+
+        } // ConvertType
         
     } // class SharpTypeConverter
 

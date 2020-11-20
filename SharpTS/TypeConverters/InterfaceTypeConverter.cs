@@ -12,7 +12,12 @@ namespace SharpTS.TypeConverters {
     public partial class SharpTypeConverter {
     
         public TypeScriptInterface ConvertInterface(Type type) {
-            return null;
+            List<TypeScriptProperty> tsProps = new List<TypeScriptProperty>();
+            PropertyInfo[] properties = type.GetProperties();
+            foreach (PropertyInfo prop in properties) {
+               tsProps.Add(ConvertProperty(prop)); 
+            }
+            return new TypeScriptInterface(type.Name, tsProps);
         }
 
     } // class SharpTypeConverter
