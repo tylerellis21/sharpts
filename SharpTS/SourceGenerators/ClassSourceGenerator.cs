@@ -11,7 +11,17 @@ namespace SharpTS.SourceGenerators {
     /// the appropriate source code for the input types.
     /// </summary>
     public partial class SharpSourceGenerator {
+        /*
+            class Greeter {
+                greeting: string;
+            }
+        */
         private bool GenerateClass(TypeScriptClass tsClass, TextWriter output) {
+            output.WriteLine($"export class {tsClass.Name} {{");
+            foreach (TypeScriptProperty prop in tsClass.Properties) {
+                GenerateProperty(prop, output);
+            }
+            output.WriteLine("}");
             return true;
         }
         

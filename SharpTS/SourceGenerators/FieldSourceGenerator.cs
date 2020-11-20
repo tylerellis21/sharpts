@@ -12,6 +12,8 @@ namespace SharpTS.SourceGenerators {
     /// </summary>
     public partial class SharpSourceGenerator {
         private bool GenerateField(TypeScriptField tsField, TextWriter output) {
+            output.Write($"{tsField.Name}: {tsField.Type.Name}");
+            output.WriteLine(";");
             return true;
         }
         

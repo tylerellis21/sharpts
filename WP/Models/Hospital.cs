@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
 
 namespace WP.Common.Models {
+    public enum Devil : int {
+        Numer
+    }
 
     public enum HospitalType { 
         None = 20,

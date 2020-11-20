@@ -8,7 +8,7 @@ namespace SharpTS.TypeScript.Types {
         /// <summary>
         /// True if the property is optional
         /// </summary>
-        public bool Optional { get; set; } = false;
+        public bool IsOptional { get; set; } = false;
 
         /// <summary>
         /// The declared type of this property.
