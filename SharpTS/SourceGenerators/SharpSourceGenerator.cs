@@ -73,9 +73,6 @@ namespace SharpTS.SourceGenerators {
             }
             
             throw new Exception($"failed to generate source for type: {type.Name}");
-
-            return false;
-        
         }
 
     } // class SharpSourceGenerator
