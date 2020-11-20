@@ -13,7 +13,7 @@ namespace SharpTS.TypeConverters {
 
        public TypeScriptField ConvertField(FieldInfo fieldInfo) {
            
-           object? value = fieldInfo.GetRawConstantValue();
+           object value = fieldInfo.GetRawConstantValue();
 
            TypeScriptType tsType = null;
            return new TypeScriptField(fieldInfo.Name, value, tsType);
