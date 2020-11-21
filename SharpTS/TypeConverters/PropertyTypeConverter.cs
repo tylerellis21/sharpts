@@ -13,6 +13,12 @@ namespace SharpTS.TypeConverters {
 
         public TypeScriptProperty ConvertProperty(PropertyInfo propInfo) 
             => new TypeScriptProperty(propInfo.Name, ConvertType(propInfo.PropertyType));
+        
+        public TypeScriptProperty ConvertNullableProperty(Type type) {
+            // TODO: Handle nullable types
+            // PropertyInfo propInfo = type.GetGenericArguments()[0]
+            return null;
+        }
 
     } // class SharpTypeConverter
 

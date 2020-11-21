@@ -79,6 +79,11 @@ namespace SharpTS.TypeConverters {
                 if (type.Name.StartsWith("ICollection")) {
                     result = ConvertICollection(type);
                 }
+
+                // Nullable types in dotnet are wrapped in a 'System.Nullable' type
+                if (type.FullName.StartsWith("System.Nullable")) {
+                    result = ConvertNullableProperty(type);
+                }
             }
 
             // This following only executes as long as there is no
