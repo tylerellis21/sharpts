@@ -17,20 +17,22 @@ namespace SharpTS.SourceGenerators {
     /// </summary>
     public partial class SharpSourceGenerator {
         private bool GenerateProperty(TypeScriptProperty tsProperty, TextWriter output) {
-            output.Write($"{tsProperty.Name}");
+            output.Write($"{GenerateCamelCaseName(tsProperty.Name)}");
             
             if (tsProperty.IsOptional) 
                 output.Write("?");
             
             output.Write(": ");
-            
-            // If it's a class we don't need to generate the full source
-            // Just reference using the name
-            if (tsProperty.Type.IsClass == true) {
+
+            if (tsProperty.Type.IsPrimitive) {
+                GeneratePrimitive(tsProperty.Type as TypeScriptPrimitive, output);
+            }
+            else if (tsProperty.Type.IsArray) {
+                GenerateArray(tsProperty.Type as TypeScriptArray, output);
+            }
+            else { 
                 output.Write(tsProperty.Type.Name);
             }
-            else if (GenerateType(tsProperty.Type, output) == false) 
-                return false;
             
             output.WriteLine(';');
 

@@ -39,10 +39,9 @@ namespace SharpTS.TypeConverters {
                     tspType = TSPrimitiveType.TSString; 
                 break;
                 
-                case "System.Date":
+                case "System.DateTime":
                     tspType = TSPrimitiveType.TSDate;
                 break;
-
 
                 case "System.Object":
                     tspType = TSPrimitiveType.TSAny;

@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.IO;
 using System.Collections.Generic;
 
@@ -11,10 +12,11 @@ namespace SharpTS.SourceGenerators {
     /// the appropriate source code for the input types.
     /// </summary>
     public partial class SharpSourceGenerator {
-        private bool GenerateField(TypeScriptField tsField, TextWriter output) {
-            output.Write($"{GenerateCamelCaseName(tsField.Name)}: {tsField.Type.Name}");
-            output.WriteLine(";");
-            return true;
+        private static string GenerateCamelCaseName(string name) {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(Char.ToLower(name[0]));
+            sb.Append(name.Substring(1, name.Length - 1));
+            return sb.ToString();
         }
         
     } // class SharpSourceGenerator

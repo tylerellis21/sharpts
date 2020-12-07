@@ -12,7 +12,7 @@ namespace SharpTS.SourceGenerators {
     /// </summary>
     public partial class SharpSourceGenerator {
         private bool GenerateArray(TypeScriptArray tsArray, TextWriter output) {
-            output.Write($"Array<{tsArray.Type.Name}>");
+            output.Write($"Array<{GenerateCamelCaseName(tsArray.Type.Name)}>");
             return true;
         }
         

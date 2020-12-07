@@ -27,10 +27,10 @@ namespace SharpTS.TypeConverters {
 
             TypeScriptType arrayType = ConvertType(genericArgs[0]);
             */
-
+            string name = type.GetGenericArguments()[0].Name;
             // This isn't going to work.
             return new TypeScriptArray(
-                "", new TypeScriptPrimitive(type.GetGenericArguments()[0].Name, TSPrimitiveType.TSAny)
+                name, new TypeScriptPrimitive(name, TSPrimitiveType.TSAny)
             );
         }
 

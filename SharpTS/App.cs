@@ -72,7 +72,13 @@ namespace SharpTS {
             TODO(@Tyler):
                 - Can we generate the ajax functions to invoke the correct api function/urlpath as needed automatically? 
         */
-
+/*
+"args": [
+    "-o", "./ts",
+    "-i", "./wp.common.dll",
+    "-n", "^(WP.Common.*)",
+],
+*/
         // Begin the process of generating typescript.
         // 1. We must search for the types we need to processes.
         // 2. Generate the appopriate typescript files for each type we are processing.
@@ -80,7 +86,7 @@ namespace SharpTS {
             ParseArguments(args);
             
             TypeRules type_rules = new TypeRules() {
-                RegexPattern = "^(WP*)",
+                RegexPattern = "^(WP.Common.ApiResult)",
                 EnableClasses = true,
                 EnableInterfaces = true, 
                 EnableRegexFilter = true

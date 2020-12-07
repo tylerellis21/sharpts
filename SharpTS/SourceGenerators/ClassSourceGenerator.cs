@@ -17,7 +17,10 @@ namespace SharpTS.SourceGenerators {
             }
         */
         private bool GenerateClass(TypeScriptClass tsClass, TextWriter output) {
-            output.Write($"export class {tsClass.Name} ");
+            if (GenerateImports(tsClass, output) == false) {
+                return false;
+            }
+            output.Write($"export interface {tsClass.Name} ");
             
             // Don't extend object, no need.
             if (tsClass.BaseType != null && tsClass.BaseType.Name != "Object") {
