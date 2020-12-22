@@ -4,10 +4,13 @@ using System.IO;
 using System.Reflection;
 using System.Diagnostics;
 
+using SharpTS.Utils;
+
 namespace SharpTS.Reflection {
 
     /// <summary>
-    /// The TypeReflection class
+    /// The TypeReflection class handles all reflection tasks, such as loading assemblies and
+    /// Finding the types which are to be transpiled.
     /// </summary>
     public static class TypeReflection {
 
@@ -16,27 +19,30 @@ namespace SharpTS.Reflection {
         /// </summary>
         /// <param name="files">The list of dotnet assemblies to search</param>
         /// <returns>All of the assemblies that were loaded</returns>
-        public static List<Assembly> LoadAssemblies(List<string> files) {
-            
-            List<Assembly> assemblies 
+        public static List<Assembly> LoadAssemblies(string[] files) {
+
+            List<Assembly> assemblies
                 = new List<Assembly>();
-            
+
             foreach (string assembly_path in files) {
-                
+
+                // We must use a full file path when loading modules.
+                string full_assembly_path = Path.GetFullPath(assembly_path);
+
                 // By default we just print a warning and carry on.
                 // Do we want this as a flag to change that logic to exit out in the case of a missing file??
-                if (File.Exists(assembly_path) == false) {
-                    Console.WriteLine($"WARNING: skipping generation of '{assembly_path}' failed to open file");
+                if (File.Exists(full_assembly_path) == false) {
+                    Logger.Warn($"WARNING: skipping generation of '{full_assembly_path}' failed to open file");
                     continue;
                 }
 
                 try {
-                    Assembly assembly 
-                        = Assembly.LoadFile(assembly_path);
+                    Assembly assembly
+                        = Assembly.LoadFile(full_assembly_path);
 
                     if (assembly == null) {
 
-                        Console.WriteLine(
+                        Logger.Error(
                             $"ERROR: failed to load '{assembly_path}' for an unknown reason?!?"
                         );
 
@@ -48,11 +54,11 @@ namespace SharpTS.Reflection {
                 } // try
                 catch(Exception e) {
 
-                    Console.WriteLine(
+                    Logger.Error(
                         $"ERROR: failed to load '{assembly_path}' an exception occured during the assembly loading!"
                     );
 
-                    Console.WriteLine($"EXCEPTION: {e.Message}");
+                    Logger.Error($"EXCEPTION: {e.Message}");
 
                 } // catch
 
@@ -61,64 +67,30 @@ namespace SharpTS.Reflection {
             return assemblies;
         }
 
-        /// <summary>
-        /// Searches an assembly looking for types that are included by the rules
-        /// </summary>
-        /// <param name="type_rules">The rules which define the allowed types</param>
-        /// <param name="assembly">The assembly we are looking for types in</param>
-        /// <param name="results">Returns the list of types that were included by the rules</param>
-        public static void FindTypes(
-            TypeRules type_rules, 
-            Assembly assembly, 
-            ref List<Type> results) {
-
-            Type[] assembly_types = assembly.GetTypes();
-            foreach (Type type in assembly_types) {
-                if (type_rules.Check(type)) {
-                    results.Add(type); 
-                }   
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="type_rules"></param>
-        /// <param name="assemblies"></param>
-        /// <param name="results"></param>
-        public static void FindTypes(
-            TypeRules type_rules,
-            List<Assembly> assemblies, 
-            ref List<Type> results) {
-        
-            foreach (Assembly assembly in assemblies) {
-                FindTypes(type_rules, assembly, ref results);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="type_rules"></param>
-        /// <param name="input_assemblies"></param>
-        /// <param name="input_namespaces"></param>
-        /// <returns></returns>
-        public static List<Type> Load(
-            TypeRules type_rules,
-            ref List<string> input_assemblies, 
-            ref List<string> input_namespaces) {
+        public static List<Type> Load(ProjectFile project) {
 
             List<Assembly> assemblies
-                 = LoadAssemblies(input_assemblies);
+                 = LoadAssemblies(project.InputAssemblies);
 
             List<Type> results = new List<Type>();
 
-            FindTypes(type_rules, assemblies, ref results);
+            foreach (Assembly assembly in assemblies) {
+                Type[] assemblyTypes = assembly.GetTypes();
+                foreach (Type type in assemblyTypes) {
+
+                    foreach (TypeRule rule in project.Rules) {
+                        if (rule.Pass(type)) {
+                            Logger.Info($"type '{type.ToString()}' passed rule '{rule.Pattern}'");
+                            results.Add(type);
+                            break;
+                        }
+                    }
+                }
+            }
 
             return results;
         }
 
     } // class TypeReflection
-    
+
 } // namespace SharpTS.Reflection
- 
