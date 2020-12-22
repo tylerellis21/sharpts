@@ -75,7 +75,9 @@ namespace SharpTS.Reflection {
             List<Type> results = new List<Type>();
 
             foreach (Assembly assembly in assemblies) {
-                Type[] assemblyTypes = assembly.GetTypes();
+
+                Type[] assemblyTypes = assembly.GetExportedTypes();
+
                 foreach (Type type in assemblyTypes) {
 
                     foreach (TypeRule rule in project.Rules) {

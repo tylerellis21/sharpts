@@ -14,6 +14,8 @@ namespace SharpTS {
         public string OutputDirectory { get; set; } = "./";
 
         public TypeRule[] Rules { get; set; }
+
+        public bool PrefixInterfacesWithI { get; set; } = true;
     }
 
 } // namespace SharpTS

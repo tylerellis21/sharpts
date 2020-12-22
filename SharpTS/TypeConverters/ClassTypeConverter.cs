@@ -10,7 +10,7 @@ using SharpTS.TypeScript.Types;
 namespace SharpTS.TypeConverters {
 
     public partial class SharpTypeConverter {
-        
+
         // It might be nice to also produce the attributes of the class in the typescript code as a comment
 
         /// <summary>
@@ -21,7 +21,13 @@ namespace SharpTS.TypeConverters {
         /// <returns>An instance of the TypeScriptClass or null if an error occurs</returns>
         public TypeScriptClass ConvertClass(Type type) {
 
-            TypeScriptClass tsc = new TypeScriptClass(type.Name);
+            string name = type.Name;
+
+            if (App.Project.PrefixInterfacesWithI) {
+                name = "I" + name;
+            }
+
+            TypeScriptClass tsc = new TypeScriptClass(name);
 
             // TODO: Fields
             // Fields
@@ -35,7 +41,7 @@ namespace SharpTS.TypeConverters {
 
                 foreach (PropertyInfo prop in properties) {
 
-                    // Handle the self referencing by simply creating our own class with the proper reference. 
+                    // Handle the self referencing by simply creating our own class with the proper reference.
                     if (prop.PropertyType.GUID == type.GUID) {
                         tsc.Properties.Add(new TypeScriptProperty(prop.Name, tsc));
                     }
@@ -47,7 +53,7 @@ namespace SharpTS.TypeConverters {
 
             // Handle the class base type if it's not just System.Object
             tsc.BaseType = ConvertType(type.BaseType);
-            
+
             // Handle any implemented interfaces
             {
                 Type[] interfaces = type.GetInterfaces();

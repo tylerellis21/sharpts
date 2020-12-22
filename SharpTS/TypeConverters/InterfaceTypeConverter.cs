@@ -10,14 +10,20 @@ using SharpTS.TypeScript.Types;
 namespace SharpTS.TypeConverters {
 
     public partial class SharpTypeConverter {
-    
+
         public TypeScriptInterface ConvertInterface(Type type) {
             List<TypeScriptProperty> tsProps = new List<TypeScriptProperty>();
             PropertyInfo[] properties = type.GetProperties();
             foreach (PropertyInfo prop in properties) {
-               tsProps.Add(ConvertProperty(prop)); 
+               tsProps.Add(ConvertProperty(prop));
             }
-            return new TypeScriptInterface(type.Name, tsProps);
+            string name = type.Name;
+
+            if (App.Project.PrefixInterfacesWithI) {
+                name = "I" + name;
+            }
+
+            return new TypeScriptInterface(name, tsProps);
         }
 
     } // class SharpTypeConverter

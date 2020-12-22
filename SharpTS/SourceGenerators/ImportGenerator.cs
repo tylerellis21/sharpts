@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 using SharpTS.TypeScript;
 using SharpTS.TypeScript.Types;
-namespace SharpTS.SourceGenerators {  
+namespace SharpTS.SourceGenerators {
 
     /// <summary>
     /// This class is responsible for taking type script types and generate
@@ -20,11 +20,11 @@ namespace SharpTS.SourceGenerators {
             // tsClass.Properties;
 
 
-            // We gather a list of imported type names because we don't 
+            // We gather a list of imported type names because we don't
             // want to import a typename more than once
             List<string> importedTypes = new List<string>();
 
-            
+
             if (tsClass.BaseType != null) {
                 string typeName = tsClass.BaseType.Name;
                 if (importedTypes.Contains(typeName) == false) {
@@ -34,7 +34,7 @@ namespace SharpTS.SourceGenerators {
             }
 
             foreach (TypeScriptProperty prop in tsClass.Properties) {
-                
+
                 // No need to import generated types.
                 if (prop.Type.IsPrimitive) continue;
 
@@ -46,7 +46,7 @@ namespace SharpTS.SourceGenerators {
             }
 
             foreach (TypeScriptField field in tsClass.Fields) {
-                
+
                 // No need to import generated types.
                 if (field.Type.IsPrimitive) continue;
 
@@ -57,7 +57,7 @@ namespace SharpTS.SourceGenerators {
                 }
 
             }
-            
+
             output.WriteLine("// GENERATED FILE - DON'T EDIT MANUALLY");
             output.WriteLine("// BEGIN IMPORTS");
 
@@ -67,6 +67,7 @@ namespace SharpTS.SourceGenerators {
                 // Don't import Object
                 // HMM Figure out where this is being imported from
                 if (import == "Object") continue;
+                else if (import == "IObject") continue;
 
                 // Don't import self referencing types
                 if (import == tsClass.Name) continue;
@@ -78,7 +79,7 @@ namespace SharpTS.SourceGenerators {
 
             return true;
         }
-        
+
     } // class SharpSourceGenerator
-    
+
 } // namespace SharpTS.SourceGenerators

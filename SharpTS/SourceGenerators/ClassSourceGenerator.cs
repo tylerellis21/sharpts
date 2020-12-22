@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 using SharpTS.TypeScript;
 using SharpTS.TypeScript.Types;
-namespace SharpTS.SourceGenerators {  
+namespace SharpTS.SourceGenerators {
 
     /// <summary>
     /// This class is responsible for taking type script types and generate
@@ -21,7 +21,7 @@ namespace SharpTS.SourceGenerators {
                 return false;
             }
             output.Write($"export interface {tsClass.Name} ");
-            
+
             // Don't extend object, no need.
             if (tsClass.BaseType != null && tsClass.BaseType.Name != "Object") {
                 output.Write($"extends {tsClass.BaseType.Name} ");
@@ -47,7 +47,7 @@ namespace SharpTS.SourceGenerators {
             output.WriteLine("}");
             return true;
         }
-        
+
     } // class SharpSourceGenerator
-    
+
 } // namespace SharpTS.SourceGenerators
