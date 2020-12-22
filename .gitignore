@@ -344,3 +344,5 @@ build/
 docs/
 
 *.vs*
+project.json
+mylifehelper.api.dll
