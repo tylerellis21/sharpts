@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 using SharpTS.TypeScript;
 using SharpTS.TypeScript.Types;
-namespace SharpTS.SourceGenerators {  
+namespace SharpTS.SourceGenerators {
 
     /// <summary>
     /// This class is responsible for taking type script types and generate
@@ -12,10 +12,11 @@ namespace SharpTS.SourceGenerators {
     /// </summary>
     public partial class SharpSourceGenerator {
         private bool GenerateArray(TypeScriptArray tsArray, TextWriter output) {
-            output.Write($"Array<{tsArray.Type.Name}>");
+            // output.Write($"Array<{tsArray.Type.Name}>");
+            output.Write($"{tsArray.Type.Name}[]");
             return true;
         }
-        
+
     } // class SharpSourceGenerator
-    
+
 } // namespace SharpTS.SourceGenerators
