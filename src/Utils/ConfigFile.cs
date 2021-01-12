@@ -29,6 +29,8 @@ namespace SharpTS.Utils {
             }
         }
 
+        public static bool Save(this object obj, string path) => Save(path, obj);
+
         public static bool Save(string path, object obj) {
             try {
                 File.WriteAllText(path, JsonConvert.SerializeObject(obj, Formatting.Indented));

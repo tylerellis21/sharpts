@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Runtime.Loader;
 using System.Diagnostics;
 
 using SharpTS.Utils;
@@ -37,8 +38,9 @@ namespace SharpTS.Reflection {
                 }
 
                 try {
+
                     Assembly assembly
-                        = Assembly.LoadFile(full_assembly_path);
+                        = AssemblyLoadContext.Default.LoadFromAssemblyPath(full_assembly_path);
 
                     if (assembly == null) {
 
@@ -76,15 +78,20 @@ namespace SharpTS.Reflection {
 
             foreach (Assembly assembly in assemblies) {
 
-                Type[] assemblyTypes = assembly.GetExportedTypes();
-
-                foreach (Type type in assemblyTypes) {
+                foreach (Type type in assembly.GetExportedTypes()) {
 
                     foreach (TypeRule rule in project.Rules) {
-                        if (rule.Pass(type)) {
-                            Logger.Info($"type '{type.ToString()}' passed rule '{rule.Pattern}'");
-                            results.Add(type);
-                            break;
+                        if (rule.Include) {
+                            Logger.Info($"type '{type.ToString()}' included by rule '{rule.Pattern}'");
+                            if (rule.Match(type)) {
+                                results.Add(type);
+                            }
+                        }
+                        else {
+                            if (rule.Match(type) == false) {
+                                results.Add(type);
+                            }
+                            Logger.Info($"type '{type.ToString()}' excluded by rule '{rule.Pattern}'");
                         }
                     }
                 }

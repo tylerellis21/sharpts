@@ -32,9 +32,9 @@ namespace SharpTS.TypeConverters {
             this.type_map = new Dictionary<Guid, TypeScriptType>();
             this.MappedTypes = new List<TypeScriptType>();
         }
-        
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public bool Convert() {
@@ -44,6 +44,10 @@ namespace SharpTS.TypeConverters {
             }
             return true;
         }
+
+        private static List<string> ArrayTypes = new List<string>() {
+            "System.Collections.ICollection"
+        };
 
         private TypeScriptType ConvertType(Type type) {
 
@@ -64,17 +68,21 @@ namespace SharpTS.TypeConverters {
 
             // Some weird edge cases
             {
+                if (ArrayTypes.Contains(type.Name)) {
+                    return ConvertArray(type);
+                }
                 // Technically not 'Primitives' but in TypeScript we are limited to very
                 // few basic primatives
                 switch (type.Name) {
                     case "Decimal":
                     case "String":
                     case "DateTime":
+                    case "DateTimeOffset":
                         result = ConvertPrimitive(type);
                     break;
                 }
 
-                // The collection interface has weird name. 
+                // The collection interface has weird name.
                 // There's a bette way to handle this i'm sure.
                 if (type.Name.StartsWith("ICollection")) {
                     result = ConvertICollection(type);
@@ -115,7 +123,7 @@ namespace SharpTS.TypeConverters {
             return result;
 
         } // ConvertType
-        
+
     } // class SharpTypeConverter
 
 } // namespace SharpTS.TypeConverters

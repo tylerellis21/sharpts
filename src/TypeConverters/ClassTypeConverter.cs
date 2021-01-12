@@ -52,13 +52,13 @@ namespace SharpTS.TypeConverters {
             }
 
             // Handle the class base type if it's not just System.Object
-            tsc.BaseType = ConvertType(type.BaseType);
+            //tsc.BaseType = ConvertType(type.BaseType);
 
             // Handle any implemented interfaces
             {
                 Type[] interfaces = type.GetInterfaces();
                 foreach (Type iType in interfaces) {
-                    tsc.ImplementedInterfaces.Add(ConvertType(iType));
+                    //tsc.ImplementedInterfaces.Add(ConvertType(iType));
                 }
             }
 

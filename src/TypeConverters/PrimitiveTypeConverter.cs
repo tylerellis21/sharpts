@@ -16,7 +16,7 @@ namespace SharpTS.TypeConverters {
             TSPrimitiveType tspType;
 
             switch (type.FullName) {
-                
+
                 case "System.Boolean":
                     tspType = TSPrimitiveType.TSBoolean;
                 break;
@@ -24,22 +24,23 @@ namespace SharpTS.TypeConverters {
                 case "System.Int8":
                 case "System.Int16":
                 case "System.Int32":
-                case "System.Int64": 
+                case "System.Int64":
                 case "System.UInt8":
                 case "System.UInt16":
                 case "System.UInt32":
-                case "System.UInt64": 
-                case "System.Double": 
-                case "System.Decimal": 
-                    tspType = TSPrimitiveType.TSNumber; 
+                case "System.UInt64":
+                case "System.Double":
+                case "System.Decimal":
+                    tspType = TSPrimitiveType.TSNumber;
                 break;
 
-                case "System.Char": 
-                case "System.String": 
-                    tspType = TSPrimitiveType.TSString; 
+                case "System.Char":
+                case "System.String":
+                    tspType = TSPrimitiveType.TSString;
                 break;
-                
+
                 case "System.DateTime":
+                case "System.DateTimeOffset":
                     tspType = TSPrimitiveType.TSDate;
                 break;
 
@@ -48,7 +49,7 @@ namespace SharpTS.TypeConverters {
                 break;
 
                 default: tspType = TSPrimitiveType.TSNull; break;
-                
+
             } // switch (type.FullName)
 
             return new TypeScriptPrimitive(type.Name, tspType);
