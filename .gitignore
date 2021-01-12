@@ -342,6 +342,7 @@ healthchecksdb
 lib/
 build/
 docs/
+testbin/
 
 *.vs*
 project.json
